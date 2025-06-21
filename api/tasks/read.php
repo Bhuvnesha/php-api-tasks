@@ -1,7 +1,16 @@
 <?php
+session_start();
+
+if(!isset($_SESSION['user_id']))
+{
+    http_response_code(401);
+    echo json_encode(['message'=> "Unauthorised"]);
+    exit();
+}
+
 header("Content-Type: application/json");
 
-include_once "db.php";
+include_once "../db.php";
 include_once "Task.php";
 
 $database = new Database();

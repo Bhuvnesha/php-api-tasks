@@ -1,7 +1,17 @@
 <?php
 header("Content-Type: application/json");
 
-include_once "db.php";
+session_start();
+
+if(!isset($_SESSION['user_id']))
+{
+    http_response_code(401);
+    echo json_encode(['message'=> "Unauthorised"]);
+    exit();
+}
+
+
+include_once "../db.php";
 include_once "Task.php";
 
 $data = json_decode(file_get_contents("php://input"));
