@@ -1,22 +1,56 @@
-# PHP Task Management API
+# PHP Task Manager API (with User Authentication)
 
-This is a simple REST API built with core PHP and MySQL to manage tasks.
+A simple RESTful API built with PHP & MySQL to manage tasks with user login and session-based authentication.
 
-## Endpoints
+## 📁 Folder Structure
 
-| Method | Endpoint         | Description           |
-|--------|------------------|-----------------------|
-| GET    | /api/read.php    | Get all tasks         |
-| POST   | /api/create.php  | Create new task       |
-| PUT    | /api/update.php  | Update existing task  |
-| DELETE | /api/delete.php  | Delete a task         |
+/api/
+├── db.php
+├── Task.php
+├── auth/
+│ ├── register.php
+│ ├── login.php
+│ └── logout.php
+└── tasks/
+├── create.php
+├── read.php
+├── update.php
+└── delete.php
 
-## Database
 
-```sql
-CREATE TABLE tasks (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  title VARCHAR(255),
-  description TEXT,
-  status ENUM('pending', 'done') DEFAULT 'pending'
-);
+## 📦 Features
+
+- User registration (`/auth/register.php`)
+- User login + session (`/auth/login.php`)
+- User logout (`/auth/logout.php`)
+- Protected Task CRUD:
+  - Create (`/tasks/create.php`)
+  - Read (`/tasks/read.php`)
+  - Update (`/tasks/update.php`)
+  - Delete (`/tasks/delete.php`)
+
+## 🔐 Authentication
+
+Login sets a PHP session using `$_SESSION['user_id']`.  
+All task-related APIs require the user to be logged in.
+
+## 🧪 Testing
+
+Use **Postman** to test endpoints.
+
+### Register
+`POST /api/auth/register.php`
+```json
+{
+  "username": "admin",
+  "password": "secret"
+}
+
+Login
+POST /api/auth/login.php
+
+Protected Endpoint
+GET /api/tasks/read.php
+
+Logout
+GET /api/auth/logout.php
