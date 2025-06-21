@@ -13,14 +13,15 @@ class Task {
     }
 
     public function read() {
-        $query = "SELECT * FROM " . $this->table_name;
+        $query = "SELECT * FROM " . $this->table_name. " WHERE user_id=:user_id";
         $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":user_id",$_SESSION['user_id']);
         $stmt->execute();
         return $stmt;
     }
 
     public function create() {
-        $query = "INSERT INTO " . $this->table_name . " SET title=:title, description=:description, status=:status";
+        $query = "INSERT INTO " . $this->table_name . " SET title=:title, description=:description, status=:status, user_id=:user_id";
         $stmt = $this->conn->prepare($query);
         
         $this->title = htmlspecialchars(strip_tags($this->title));
@@ -30,6 +31,8 @@ class Task {
         $stmt->bindParam(":title", $this->title);
         $stmt->bindParam(":description", $this->description);
         $stmt->bindParam(":status", $this->status);
+        $stmt->bindParam(":user_id", $_SESSION['user_id']);
+
 
         if ($stmt->execute()) {
             return true;
