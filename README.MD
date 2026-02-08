@@ -53,4 +53,4 @@ project/
 
 ## 🙌 Credits
 
-Built by [Your Name] as a beginner-friendly PHP API + UI project.
+Built by Bhuvanesh Anand as a beginner-friendly PHP API + UI project.
